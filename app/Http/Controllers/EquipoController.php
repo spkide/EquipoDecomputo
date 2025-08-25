@@ -9,14 +9,13 @@ class EquipoController extends Controller
 {
     public function index()
     {
-        // Usar el modelo correctamente
         $equipos = EquipoDeComputo::all(); 
-        return view('equipos.equipodecomputo', compact('equipos'));
+        return view('equipos.equipodecomputos', compact('equipos'));
     }
 
     public function create()
     {
-        return view('equipodecomputo.create');
+        return view('equipos.create');
     }
 
     public function store(Request $request)
@@ -27,22 +26,28 @@ class EquipoController extends Controller
             'procesador' => 'required',
             'ram' => 'required',
             'disco_duro' => 'required',
-            'almacenamiento' => 'required',
             'sistema_operativo' => 'required',
             'estado' => 'required',
             'numero_serie' => 'required|unique:equipodecomputo',
         ]);
 
         $equipo = new EquipoDeComputo();
-        $equipo->fill($request->all());
+        $equipo->marca = $request->marca;
+        $equipo->modelo = $request->modelo;
+        $equipo->procesador = $request->procesador;
+        $equipo->ram = $request->ram;
+        $equipo->disco_duro = $request->disco_duro;
+        $equipo->sistema_operativo = $request->sistema_operativo;
+        $equipo->estado = $request->estado;
+        $equipo->numero_serie = $request->numero_serie;
         $equipo->save();
 
-        return redirect()->route('equipos.index')->with('success','Equipo creado correctamente.');
+        return redirect()->route('equipos.index')->with('success', 'Equipo creado correctamente.');
     }
 
     public function edit(EquipoDeComputo $equipo)
     {
-        return view('equipodecomputos.edit', compact('equipo'));
+        return view('equipos.edit', compact('equipo'));
     }
 
     public function update(Request $request, EquipoDeComputo $equipo)
@@ -54,16 +59,26 @@ class EquipoController extends Controller
             'ram' => 'required',
             'disco_duro' => 'required',
             'sistema_operativo' => 'required',
-            'numero_serie' => 'required|unique:equipodecomputo,numero_serie,'.$equipo->id,
+            'estado' => 'required',
+            'numero_serie' => 'required|unique:equipodecomputo,numero_serie,' . $equipo->id,
         ]);
 
-        $equipo->update($request->all());
-        return redirect()->route('equipos.index')->with('success','Equipo actualizado correctamente.');
+        $equipo->marca = $request->marca;
+        $equipo->modelo = $request->modelo;
+        $equipo->procesador = $request->procesador;
+        $equipo->ram = $request->ram;
+        $equipo->disco_duro = $request->disco_duro;
+        $equipo->sistema_operativo = $request->sistema_operativo;
+        $equipo->estado = $request->estado;
+        $equipo->numero_serie = $request->numero_serie;
+        $equipo->save();
+
+        return redirect()->route('equipos.index')->with('success', 'Equipo actualizado correctamente.');
     }
 
     public function destroy(EquipoDeComputo $equipo)
     {
         $equipo->delete();
-        return redirect()->route('equipos.index')->with('success','Equipo eliminado correctamente.');
+        return redirect()->route('equipos.index')->with('success', 'Equipo eliminado correctamente.');
     }
 }

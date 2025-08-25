@@ -9,11 +9,18 @@ class EquipoDeComputo extends Model
 {
     use HasFactory;
 
-    protected $table = 'equipodecomputo'; // Tu tabla real
+    // Indicar explícitamente la tabla
+    protected $table = 'equipodecomputos';
 
+    // Campos que se pueden asignar masivamente
     protected $fillable = [
-        'marca', 'modelo', 'procesador', 'ram', 
-        'disco_duro', 'almacenamiento', 'sistema_operativo',
-        'estado', 'numero_serie'
+        'marca',
+        'modelo',
+        'procesador',
+        'ram',
+        'disco_duro',
+        'sistema_operativo',
+        'estado',
+        'numero_serie',
     ];
 }
