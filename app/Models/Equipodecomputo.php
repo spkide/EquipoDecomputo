@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Equipodecomputo extends Model
 {
     use HasFactory;
+    protected $fillable = ['marca','modelo','procesador','ram','almacenamiento','estado'];
 }

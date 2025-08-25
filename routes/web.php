@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EquipoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,4 +18,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('equipodecomputos', 'App\Http\Controllers\EquipoDeComputoController');
+//ruta de equipos de computos
+Route::resource('equipos', EquipoController::class);

@@ -2,83 +2,67 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EquipoDeComputo;
 use Illuminate\Http\Request;
 
 class EquipoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $equipos = Equipodecomputo::all();
+        $equipo = new Equipodecomputo();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('equipodecomputos.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'marca' => 'required',
+            'modelo' => 'required',
+            'procesador' => 'required',
+            'ram' => 'required',
+            'disco_duro' => 'required',
+            'almacenamiento' => 'required',
+            'sistema_operativo' => 'required',
+            'estado' => 'required',
+            'numero_serie' => 'required|unique:equipodecomputos',
+        ]);
+
+        $equipo = new EquipoDeComputo();
+        $equipo->fill($request->all());
+        $equipo->save();
+
+        return redirect()->route('equipos.index')->with('success','Equipo creado correctamente.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function edit(EquipoDeComputo $equipo)
     {
-        //
+        return view('equipodecomputos.edit', compact('equipo'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function update(Request $request, EquipoDeComputo $equipo)
     {
-        //
+        $request->validate([
+            'marca' => 'required',
+            'modelo' => 'required',
+            'procesador' => 'required',
+            'ram' => 'required',
+            'disco_duro' => 'required',
+            'sistema_operativo' => 'required',
+            'numero_serie' => 'required|unique:equipodecomputos,numero_serie,'.$equipo->id,
+        ]);
+
+        $equipo->update($request->all());
+        return redirect()->route('equipos.index')->with('success','Equipo actualizado correctamente.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function destroy(EquipoDeComputo $equipo)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $equipo->delete();
+        return redirect()->route('equipos.index')->with('success','Equipo eliminado correctamente.');
     }
 }
