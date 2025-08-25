@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\EquipoDeComputo;
 use Illuminate\Http\Request;
 
+
 class EquipoController extends Controller
 {
     public function index()
     {
-        $equipos = Equipodecomputo::all();
-        $equipo = new Equipodecomputo();
+       $equipos = Equipodecomputo::all(); // Trae todos los registros
+        return view('equipos.equipodecomputos', compact('equipos')); // Pasa los datos a la vista   
     }
 
     public function create()

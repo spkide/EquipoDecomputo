@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Equipodecomputo extends Model
+class EquipoDeComputo extends Model
 {
     use HasFactory;
-    protected $fillable = ['marca','modelo','procesador','ram','almacenamiento','estado'];
+    protected $fillable = ['marca','modelo','procesador','ram','disco_duro','almacenamiento','sistema_operativo','estado','numero_serie'];
 }
+
