@@ -5,18 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\EquipoDeComputo;
 use Illuminate\Http\Request;
 
-
 class EquipoController extends Controller
 {
     public function index()
     {
-       $equipos = Equipodecomputo::all(); // Trae todos los registros
-        return view('equipos.equipodecomputos', compact('equipos')); // Pasa los datos a la vista   
+        // Usar el modelo correctamente
+        $equipos = EquipoDeComputo::all(); 
+        return view('equipos.equipodecomputo', compact('equipos'));
     }
 
     public function create()
     {
-        return view('equipodecomputos.create');
+        return view('equipodecomputo.create');
     }
 
     public function store(Request $request)
@@ -30,7 +30,7 @@ class EquipoController extends Controller
             'almacenamiento' => 'required',
             'sistema_operativo' => 'required',
             'estado' => 'required',
-            'numero_serie' => 'required|unique:equipodecomputos',
+            'numero_serie' => 'required|unique:equipodecomputo',
         ]);
 
         $equipo = new EquipoDeComputo();
@@ -54,7 +54,7 @@ class EquipoController extends Controller
             'ram' => 'required',
             'disco_duro' => 'required',
             'sistema_operativo' => 'required',
-            'numero_serie' => 'required|unique:equipodecomputos,numero_serie,'.$equipo->id,
+            'numero_serie' => 'required|unique:equipodecomputo,numero_serie,'.$equipo->id,
         ]);
 
         $equipo->update($request->all());

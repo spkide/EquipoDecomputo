@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class EquipoDeComputo extends Model
 {
     use HasFactory;
-    protected $fillable = ['marca','modelo','procesador','ram','disco_duro','almacenamiento','sistema_operativo','estado','numero_serie'];
-}
 
+    protected $table = 'equipodecomputo'; // Tu tabla real
+
+    protected $fillable = [
+        'marca', 'modelo', 'procesador', 'ram', 
+        'disco_duro', 'almacenamiento', 'sistema_operativo',
+        'estado', 'numero_serie'
+    ];
+}
